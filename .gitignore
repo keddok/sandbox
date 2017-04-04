@@ -11,6 +11,7 @@
 # IntelliJ IDEA files
 *.ipr
 *.iml
+.idea
 
 # maven target dir
 target/
