@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="SoapStreamingService" targetNamespace="http://streaming.soap.sandbox.keddok.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://streaming.soap.sandbox.keddok.com" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+    <wsdl:types>
+        <xs:schema xmlns:tns="http://streaming.soap.sandbox.keddok.com" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="unqualified" targetNamespace="http://streaming.soap.sandbox.keddok.com" version="1.0">
+
+            <xs:import namespace="http://www.w3.org/2005/05/xmlmime"/>
+            <xs:element name="fileDownload" type="tns:fileDownload"/>
+
+            <xs:element name="fileUpload" type="tns:fileUpload"/>
+
+            <xs:element name="fileUploadResponse" type="tns:fileUploadResponse"/>
+
+            <xs:complexType name="fileUpload">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+                    <xs:element minOccurs="0" name="arg1" type="xs:base64Binary" xmime:expectedContentTypes="application/octet-stream"/>
+                </xs:sequence>
+            </xs:complexType>
+
+            <xs:complexType name="fileUploadResponse">
+                <xs:sequence/>
+            </xs:complexType>
+
+            <xs:complexType name="fileDownload">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="fileUploadResponse">
+        <wsdl:part name="parameters" element="tns:fileUploadResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="fileDownload">
+        <wsdl:part name="parameters" element="tns:fileDownload">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="fileUpload">
+        <wsdl:part name="parameters" element="tns:fileUpload">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:portType name="SoapStreaming">
+        <wsdl:operation name="fileUpload">
+            <wsdl:input name="fileUpload" message="tns:fileUpload">
+            </wsdl:input>
+            <wsdl:output name="fileUploadResponse" message="tns:fileUploadResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="fileDownload">
+            <wsdl:input name="fileDownload" message="tns:fileDownload">
+            </wsdl:input>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="SoapStreamingServiceSoapBinding" type="tns:SoapStreaming">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="fileUpload">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="fileUpload">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="fileUploadResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="fileDownload">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="fileDownload">
+                <soap:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="SoapStreamingService">
+        <wsdl:port name="SoapStreamingPort" binding="tns:SoapStreamingServiceSoapBinding">
+            <soap:address location="http://localhost:9090/SoapStreamingPort"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
