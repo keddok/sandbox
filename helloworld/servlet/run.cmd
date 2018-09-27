@@ -1,1 +1,1 @@
-mvn jetty:run -Djetty.http.port=8888
+mvn jetty:run -Djetty.http.port=8888 -Djetty.http.idleTimeout=30000 -DmaxThreads=500 -Dthreads.max=500 -Djetty.http.acceptors=4 -Djetty.http.acceptorQueueSize=5000 -Djetty.threadPool.maxThreads=500
